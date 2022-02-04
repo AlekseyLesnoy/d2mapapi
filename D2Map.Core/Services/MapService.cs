@@ -1,8 +1,9 @@
 ﻿using D2Map.Core.Models;
 using Microsoft.Extensions.Caching.Memory;
 using System;
+using System.Linq;
 
-namespace D2Map.Core
+namespace D2Map.Core.Services
 {
     public class MapService : IMapService
     {
@@ -24,6 +25,18 @@ namespace D2Map.Core
             {
                 return session.GetMap(area);
             }
+        }
+
+        public ArcaneMap GetArcaneMap(uint mapId, Difficulty difficulty)
+        {
+            var map = GetCollisionMap(mapId, difficulty, Area.ArcaneSanctuary);
+            var arcaneMap = new ArcaneMap()
+            {
+                SummonerInfo = map.Npcs[((int)Npc.Summoner).ToString()].First().ToPointX(),
+                WaypointInfo = map.Objects["402"].First().ToPointX()
+            };
+            
+            return arcaneMap;
         }
 
         private void DeleteSession(object key, object value, EvictionReason reason, object state)

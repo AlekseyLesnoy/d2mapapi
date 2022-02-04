@@ -1,5 +1,5 @@
 ﻿using D2Map.Api.Controllers.Models;
-using D2Map.Core;
+using D2Map.Core.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace D2Map.Api.Controllers
